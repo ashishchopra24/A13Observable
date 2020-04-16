@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import {filter, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -12,9 +13,13 @@ export class UserComponent implements OnInit {
   constructor(private route: ActivatedRoute) {
   }
 
+
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.id = +params.id;
+    this.route.params.pipe(map( data => {
+      return ((+data.id + 1));
+    })).subscribe((params: number) => {
+      this.id = params;
     });
   }
+
 }
